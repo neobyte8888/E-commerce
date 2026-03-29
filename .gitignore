@@ -1,0 +1,47 @@
+### Build ###
+target/
+build/
+
+### Logs ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+
+### Env ###
+.env
+
+### IDE ###
+
+# Eclipse
+.project
+.classpath
+.settings/
+.springBeans
+.sts4-cache
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Maven Wrapper ###
+.mvn/wrapper/maven-wrapper.jar
+
+### Keep nested target if needed ###
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Sensitive config (optional but recommended) ###
+application.properties
+application.yml

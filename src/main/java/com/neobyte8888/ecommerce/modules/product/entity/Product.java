@@ -111,11 +111,11 @@ public class Product extends BaseEntity {
 		this.category = category;
 	}
 	
-	public Boolean getIsDeleted() {
+	public Boolean getDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 }

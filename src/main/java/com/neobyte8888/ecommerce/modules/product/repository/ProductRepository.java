@@ -11,4 +11,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	// Vũ khí tối thượng để check xem Danh mục có chứa Sản phẩm nào không
     // trước khi cho phép xóa (Chống Orphan data).
     boolean existsByCategoryId(Long categoryId);
+    
+    // Chống trùng tên sản phảm
+    boolean existsByName(String name);
 }

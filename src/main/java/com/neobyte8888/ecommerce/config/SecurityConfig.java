@@ -60,7 +60,7 @@ public class SecurityConfig {
 	                .requestMatchers("/api/v1/auth/**").permitAll()
 	                
 	                .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll() // Cho phép xem danh mục không cần Token
-	                
+	                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll() // Cho phép xem danh mục không cần Token
 	                // MỞ RỘNG TƯƠNG LAI: Nếu có Swagger UI để test API, ta cũng sẽ mở ở đây
 	                // .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
 

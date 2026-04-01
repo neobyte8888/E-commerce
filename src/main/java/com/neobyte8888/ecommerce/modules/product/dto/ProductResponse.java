@@ -1,6 +1,8 @@
 package com.neobyte8888.ecommerce.modules.product.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductResponse {
 	private Long id;
@@ -9,8 +11,10 @@ public class ProductResponse {
 	private String description;
 	private BigDecimal price;
 	private Integer stock;
+	private String imageUrl;
+	private List<String> gallery = new ArrayList<>();
 
-	// TƯ DUY SENIOR: Trả về cả ID và Tên danh mục để Frontend dễ hiển thị
+	// Trả về cả ID và Tên danh mục để Frontend dễ hiển thị
 	private Long categoryId;
 	private String categoryName;
 
@@ -80,5 +84,21 @@ public class ProductResponse {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public List<String> getGallery() {
+		return gallery;
+	}
+
+	public void setGallery(List<String> gallery) {
+		this.gallery = gallery;
 	}
 }

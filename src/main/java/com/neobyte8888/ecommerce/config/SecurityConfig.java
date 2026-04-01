@@ -58,7 +58,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 	                // Cho phép tất cả mọi người (kể cả chưa đăng nhập) truy cập vào các API Auth (Đăng ký, Đăng nhập)
 	                .requestMatchers("/api/v1/auth/**").permitAll()
-	                
+	                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
 	                .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll() // Cho phép xem danh mục không cần Token
 	                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll() // Cho phép xem danh mục không cần Token
 	                // MỞ RỘNG TƯƠNG LAI: Nếu có Swagger UI để test API, ta cũng sẽ mở ở đây

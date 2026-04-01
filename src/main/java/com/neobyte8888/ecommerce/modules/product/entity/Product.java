@@ -2,6 +2,8 @@ package com.neobyte8888.ecommerce.modules.product.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.SQLRestriction;
 
@@ -38,9 +40,19 @@ public class Product extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
-	
+
 	@Column(name = "is_deleted", nullable = false)
 	private Boolean isDeleted = false;
+
+	// Lưu đường dẫn ảnh
+	@Column(name = "image_url", length = 500)
+	private String imageUrl;
+
+	// Danh sách ảnh chi tiết (Gallery)
+	// cascade = CascadeType.ALL và orphanRemoval = true
+	// Giúp Spring JPA tự động xóa/thêm ảnh con khi ta thao tác trên list này.
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProductImage> galleryImages = new ArrayList<>();
 
 	// Constructors
 	public Product() {
@@ -110,12 +122,28 @@ public class Product extends BaseEntity {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 	public Boolean getDeleted() {
 		return isDeleted;
 	}
 
 	public void setDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public List<ProductImage> getGalleryImages() {
+		return galleryImages;
+	}
+
+	public void setGalleryImages(List<ProductImage> galleryImages) {
+		this.galleryImages = galleryImages;
 	}
 }

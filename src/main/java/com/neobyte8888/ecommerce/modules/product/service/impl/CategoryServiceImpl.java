@@ -3,7 +3,6 @@ package com.neobyte8888.ecommerce.modules.product.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neobyte8888.ecommerce.common.SlugUtils;
 import com.neobyte8888.ecommerce.exception.BusinessException;
 import com.neobyte8888.ecommerce.exception.ResourceNotFoundException;
 import com.neobyte8888.ecommerce.modules.product.dto.CategoryRequest;
@@ -12,6 +11,7 @@ import com.neobyte8888.ecommerce.modules.product.entity.Category;
 import com.neobyte8888.ecommerce.modules.product.repository.CategoryRepository;
 import com.neobyte8888.ecommerce.modules.product.repository.ProductRepository;
 import com.neobyte8888.ecommerce.modules.product.service.CategoryService;
+import com.neobyte8888.ecommerce.util.SlugUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;

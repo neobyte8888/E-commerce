@@ -1,4 +1,4 @@
-package com.neobyte8888.ecommerce.common;
+package com.neobyte8888.ecommerce.util;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;

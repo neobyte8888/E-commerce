@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-
 import com.neobyte8888.ecommerce.common.ApiResponse;
 
 import java.util.HashMap;
@@ -43,7 +42,7 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
+    
     //=====================404 BAD REQUEST======================
     // 1. Xử lý lỗi Logic nghiệp vụ (400 Bad Request)
     @ExceptionHandler(BusinessException.class)
@@ -109,4 +108,5 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
 }

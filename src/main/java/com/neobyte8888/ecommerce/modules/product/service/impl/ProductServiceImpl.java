@@ -17,6 +17,7 @@ import com.neobyte8888.ecommerce.exception.BusinessException;
 import com.neobyte8888.ecommerce.exception.ResourceNotFoundException;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductRequest;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductResponse;
+import com.neobyte8888.ecommerce.modules.product.dto.ProductSummaryProjection;
 import com.neobyte8888.ecommerce.modules.product.entity.Category;
 import com.neobyte8888.ecommerce.modules.product.entity.Product;
 import com.neobyte8888.ecommerce.modules.product.entity.ProductImage;
@@ -175,6 +176,33 @@ public class ProductServiceImpl implements ProductService {
 
         // Lưu lại DB và map ra DTO
         return mapToResponse(productRepository.save(product));
+    }
+    
+    // ==========================================
+    // LẤY DANH SÁCH SẢN PHẨM (TỐI ƯU RAM)
+    // ==========================================
+    @Override
+    @Transactional(readOnly = true)
+    public PageResponse<ProductSummaryProjection> getProductsForHomePage(int pageNo, int pageSize, String sortBy, String sortDir) {
+        
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        // Gọi thẳng hàm Projection từ Repository
+        Page<ProductSummaryProjection> productPage = productRepository.findAllProjectedBy(pageable);
+
+        // Chuyển đổi sang PageResponse (Không cần dùng Mapper phức tạp vì Projection đã là DTO rồi)
+        PageResponse<ProductSummaryProjection> pageResponse = new PageResponse<>();
+        pageResponse.setContent(productPage.getContent());
+        pageResponse.setPageNo(productPage.getNumber());
+        pageResponse.setPageSize(productPage.getSize());
+        pageResponse.setTotalElements(productPage.getTotalElements());
+        pageResponse.setTotalPages(productPage.getTotalPages());
+        pageResponse.setLast(productPage.isLast());
+
+        return pageResponse;
     }
 	
 	// Hàm phụ trợ map Entity sang DTO

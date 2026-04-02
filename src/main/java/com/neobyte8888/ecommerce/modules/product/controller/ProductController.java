@@ -25,6 +25,7 @@ import com.neobyte8888.ecommerce.exception.BusinessException;
 import com.neobyte8888.ecommerce.infrastructure.storage.service.FileStorageService;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductRequest;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductResponse;
+import com.neobyte8888.ecommerce.modules.product.dto.ProductSummaryProjection;
 import com.neobyte8888.ecommerce.modules.product.service.ProductService;
 
 import jakarta.validation.Valid;
@@ -67,6 +68,23 @@ public class ProductController {
 		
 		return ResponseEntity.ok(response);
 	}
+	
+	// Cập nhật API lấy danh sách sản phẩm (Bỏ @PreAuthorize vì ai cũng xem được trang chủ)
+    @GetMapping("/home")
+    public ResponseEntity<ApiResponse<PageResponse<ProductSummaryProjection>>> getAllProductsForHome(
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "desc", required = false) String sortDir
+    ) {
+        PageResponse<ProductSummaryProjection> data = productService.getProductsForHomePage(page, size, sortBy, sortDir);
+        
+        return ResponseEntity.ok(new ApiResponse<>(
+                HttpStatus.OK.value(), 
+                "Lấy danh sách sản phẩm trang chủ thành công", 
+                data
+        ));
+    }
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse<ProductResponse>> getProductById(@PathVariable Long id){

@@ -96,6 +96,7 @@ public class CategoryServiceImpl implements CategoryService {
         // 3. XÓA MỀM (Soft Delete): Chỉ đổi cờ thành true, KHÔNG GỌI repository.delete()
         category.setDeleted(true);
         categoryRepository.save(category);
+        //categoryRepository.deleteById(id);
     }
 
     @Override

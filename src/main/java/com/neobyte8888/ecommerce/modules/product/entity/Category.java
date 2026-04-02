@@ -3,6 +3,7 @@ package com.neobyte8888.ecommerce.modules.product.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.neobyte8888.ecommerce.common.BaseEntity;
@@ -11,6 +12,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "categories")
+//Biến lệnh DELETE vật lý thành lệnh UPDATE is_deleted = true
+@SQLDelete(sql = "UPDATE categories SET is_deleted = true WHERE id=?")
 //Mọi câu lệnh SELECT từ nay về sau (findAll, findById...) 
 //Hibernate sẽ TỰ ĐỘNG nhét thêm chữ "AND is_deleted = false" vào câu SQL.
 @SQLRestriction("is_deleted = false")

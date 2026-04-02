@@ -6,6 +6,7 @@ import java.util.List;
 import com.neobyte8888.ecommerce.common.PageResponse;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductRequest;
 import com.neobyte8888.ecommerce.modules.product.dto.ProductResponse;
+import com.neobyte8888.ecommerce.modules.product.dto.ProductSummaryProjection;
 
 public interface ProductService {
 	ProductResponse createProduct(ProductRequest productRequest);
@@ -19,5 +20,7 @@ public interface ProductService {
     
     // Lưu danh sách ảnh vào bộ sưu tập (Gallery)
     ProductResponse uploadProductGallery(Long id, List<String> imageUrls);
+    
+    PageResponse<ProductSummaryProjection> getProductsForHomePage(int pageNo, int pageSize, String sortBy, String sortDir);
 	
 }

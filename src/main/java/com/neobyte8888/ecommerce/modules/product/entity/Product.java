@@ -5,12 +5,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.neobyte8888.ecommerce.common.BaseEntity;
 
 @Entity
 @Table(name = "products")
+//Vì Product có gắn @Version, Hibernate khi gọi lệnh DELETE 
+//sẽ truyền ngầm 2 tham số: ID và Version. Nên câu SQL tự chế của ta phải hứng đủ 2 dấu hỏi chấm (?).
+@SQLDelete(sql = "UPDATE products SET is_deleted = true WHERE id=? AND version=?")
 //Mọi câu lệnh SELECT từ nay về sau (findAll, findById...) 
 //Hibernate sẽ TỰ ĐỘNG nhét thêm chữ "AND is_deleted = false" vào câu SQL.
 @SQLRestriction("is_deleted = false")

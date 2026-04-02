@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -90,6 +91,21 @@ public class GlobalExceptionHandler {
                 "Email hoặc mật khẩu không chính xác!"
         );
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+    
+
+    // XỬ LÝ LỖI TRANH CHẤP MUA HÀNG (RACE CONDITION)
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public ResponseEntity<ApiResponse<Object>> handleOptimisticLockingException(ObjectOptimisticLockingFailureException ex) {
+        
+        log.error("[RACE CONDITION] Đã chặn thành công một luồng tranh chấp dữ liệu đồng thời!");
+        
+        // Trả về HTTP 409 Conflict (Xung đột dữ liệu)
+        return new ResponseEntity<>(new ApiResponse<>(
+                HttpStatus.CONFLICT.value(), 
+                "Xin lỗi, sản phẩm bạn chọn vừa có sự thay đổi về số lượng do người khác mua. Vui lòng thử lại!", 
+                null
+        ), HttpStatus.CONFLICT);
     }
 
     //=====================500 INTERNAL SERVER ERROR======================

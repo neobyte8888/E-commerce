@@ -54,6 +54,11 @@ public class Product extends BaseEntity {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductImage> galleryImages = new ArrayList<>();
 
+	// KHÓA LẠC QUAN (OPTIMISTIC LOCKING)
+	@Version
+	@Column(nullable = false)
+	private Long version;
+
 	// Constructors
 	public Product() {
 	}
@@ -145,5 +150,13 @@ public class Product extends BaseEntity {
 
 	public void setGalleryImages(List<ProductImage> galleryImages) {
 		this.galleryImages = galleryImages;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 }

@@ -63,6 +63,9 @@ public class SecurityConfig {
 	                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll() // Cho phép xem danh mục không cần Token
 	                // MỞ RỘNG TƯƠNG LAI: Nếu có Swagger UI để test API, ta cũng sẽ mở ở đây
 	                // .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+	                
+	                // Mở cửa đón Webhook từ cổng thanh toán (Không cần Token)
+	                .requestMatchers(HttpMethod.POST, "/api/v1/payments/webhook/**").permitAll()
 
 	                // TẤT CẢ các request còn lại chạy vào hệ thống BẮT BUỘC phải được xác thực (Đã đăng nhập)
 	                .anyRequest().authenticated()
